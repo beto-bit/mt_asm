@@ -1,5 +1,8 @@
 #pragma once
 
-#include <stdnoreturn.h>
+#include <sys/types.h>
 
-noreturn void exit(int);
+size_t strlen(const char* str);
+ssize_t print_str_n(const char* str, size_t len);
+ssize_t print_str(const char* str);
+
