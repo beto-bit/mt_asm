@@ -1,4 +1,4 @@
-void exit(int);
+#include "utils.h"
 
 void _start(void) {
     exit(0);

@@ -1,4 +1,4 @@
-global  exit
+global exit
 
 section .text
 

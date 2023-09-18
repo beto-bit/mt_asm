@@ -1,5 +1,6 @@
-BUILD_DIR := build
 TARGET := main
+BUILD_DIR := build
+INCLUDE_DIR := include
 
 C_SRCS := src/main.c
 AS_SRCS := src/utils.asm
@@ -13,6 +14,7 @@ ASFLAGS := -f elf64 -g
 
 CC := gcc
 CFLAGS := -O2 -g -std=c11 -nostdlib \
+		  -I ${INCLUDE_DIR} \
 		  -Wall -Wextra -pedantic -Warray-bounds \
 		  -Wdeprecated -Wcast-qual \
 		  -Wundef -Wunused -Wshadow \
