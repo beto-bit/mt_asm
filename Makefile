@@ -2,7 +2,7 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-C_SRCS := src/main.c src/fmt/print_str.c
+C_SRCS := src/main.c src/fmt/print.c
 AS_SRCS := src/low/calls.asm src/low/utils.asm
 
 C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)
