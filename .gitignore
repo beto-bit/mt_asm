@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Executable
+main
+
+# LSP thingies
+compile_flags.txt
