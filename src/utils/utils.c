@@ -2,9 +2,11 @@
 #include <stdint.h>
 #include "utils.h"
 
-void fill_buff(uint8_t *buff, size_t len, uint8_t val) {
+void fill_buff(void *buff, size_t len, uint8_t val) {
+    uint8_t *buffer = (uint8_t *)buff;
+
     for (size_t idx = 0; idx < len; ++idx) {
-        buff[idx] = val;
+        buffer[idx] = val;
     }
 }
 

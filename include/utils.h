@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void fill_buff(uint8_t *buff, size_t len, uint8_t val);
+void fill_buff(void *buff, size_t len, uint8_t val);
 
 uint64_t abs(int64_t num);
 

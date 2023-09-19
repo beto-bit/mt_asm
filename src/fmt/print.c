@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "calls.h"
 #include "fmt/print.h"
+#include "utils.h"
 
 size_t strlen(const char* str) {
     size_t len = 0;
@@ -31,11 +32,9 @@ char num_to_hex(uint8_t num) {
     }
 }
 
-size_t format_ten(char *buff, uint64_t num) {
-    buff = "AAAABBBBCCCCDDD";
-    return 0;
-
+size_t format_ten(char buff[20], int64_t num) {
    uint8_t negative = (num > 0) ? 0 : 1;
+   num = abs(num);
    size_t index = 19;
 
    // Reverse enter characters in buffer
@@ -54,5 +53,53 @@ size_t format_ten(char *buff, uint64_t num) {
    if (negative)
        buff[--index] = '-';
 
-    return 20 - index;
+    return index;
+}
+
+size_t format_hex(char buff[16], uint64_t num) {
+    size_t index = 15;
+
+    // Reverse enter characters in buffer
+    while (1) {
+        uint64_t div = num / 16;
+        uint8_t mod = num % 16;
+
+        buff[index] = num_to_hex(mod);
+
+        if (!div) break;
+
+        --index;
+        num = div;
+    }
+
+    // Enter suffix
+    buff[--index] = 'x';
+    buff[--index] = '0';
+
+    return index;
+}
+
+void format_num(int64_t num, enum FormatType format_type) {
+    char buff[20];
+
+    if (format_type == DEC) {
+        short is_negative = (num < 0) ? 1 : 0;
+
+        size_t len = format_ten(buff, num);
+
+        // Number string is at the bottom of the buffer
+        // Length is number of digits + (maybe) a negative sign
+        print_str_n(buff + len, log(num, 10) + is_negative);
+
+        return;
+    }
+    else if (format_type == HEX) {
+        size_t len = format_hex(buff, num);
+
+        // Number string is at the bottom of the buffer
+        // Length is number of digits + 0x (2 digits)
+        print_str_n(buff + len, log(num, 16) + 2);
+
+        return;
+    }
 }
