@@ -11,7 +11,7 @@ void fill_buff(void *buff, size_t len, uint8_t val) {
 }
 
 uint64_t abs(int64_t num) {
-    return (num > 0) ? num : num * -1;
+    return (num >= 0) ? num : num * -1;
 }
 
 uint8_t log(uint64_t num, uint32_t base) {

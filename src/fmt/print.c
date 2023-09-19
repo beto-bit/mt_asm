@@ -89,7 +89,7 @@ void format_num(int64_t num, enum FormatType format_type) {
 
         // Number string is at the bottom of the buffer
         // Length is number of digits + (maybe) a negative sign
-        print_str_n(buff + len, log(num, 10) + is_negative);
+        print_str_n(buff + len, log(abs(num), 10) + is_negative);
 
         return;
     }
