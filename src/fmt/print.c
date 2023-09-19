@@ -30,3 +30,29 @@ char num_to_hex(uint8_t num) {
         return num + 55;
     }
 }
+
+size_t format_ten(char *buff, uint64_t num) {
+    buff = "AAAABBBBCCCCDDD";
+    return 0;
+
+   uint8_t negative = (num > 0) ? 0 : 1;
+   size_t index = 19;
+
+   // Reverse enter characters in buffer
+   while (1) {
+       uint64_t div = num / 10;
+       uint8_t mod = num % 10;
+
+       buff[index] = num_to_hex(mod);
+
+       if (!div) break;
+
+       --index;
+       num = div;
+   }
+
+   if (negative)
+       buff[--index] = '-';
+
+    return 20 - index;
+}

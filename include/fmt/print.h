@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include <stdint.h>
 #include <sys/types.h>
 
@@ -12,4 +13,6 @@ ssize_t print_str_n(const char* str, size_t len);
 ssize_t print_str(const char* str);
 
 char num_to_hex(uint8_t num);
+
+size_t format_ten(char *buff, uint64_t num);
 

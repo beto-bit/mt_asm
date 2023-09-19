@@ -2,7 +2,7 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-C_SRCS := src/main.c src/fmt/print.c
+C_SRCS := src/main.c src/utils/utils.c src/fmt/print.c
 AS_SRCS := src/low/calls.asm src/low/utils.asm
 
 C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)
@@ -13,7 +13,7 @@ AS := nasm
 ASFLAGS := -f elf64 -g
 
 CC := gcc
-CFLAGS := -O2 -g -std=c11 -nostdlib \
+CFLAGS := -O2 -g -std=c11 -ffreestanding -nostdlib \
 		  -I ${INCLUDE_DIR} \
 		  -Wall -Wextra -pedantic -Warray-bounds \
 		  -Wdeprecated -Wcast-qual \
