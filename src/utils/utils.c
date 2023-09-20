@@ -2,6 +2,15 @@
 #include <stdint.h>
 #include "utils.h"
 
+void copy_buff(const void *src, void *dst, size_t n) {
+    const uint8_t *src_buff = (const uint8_t*) src;
+    uint8_t *dst_buff = (uint8_t*) dst;
+
+    for (size_t idx = 0; idx < n; ++idx) {
+        dst_buff[idx] = src_buff[idx];
+    }
+}
+
 void fill_buff(void *buff, size_t len, uint8_t val) {
     uint8_t *buffer = (uint8_t *)buff;
 
