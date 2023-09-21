@@ -13,7 +13,6 @@ int main(void) {
     int ret = munmap(stack, STACK_SIZE);
 
     format_num(ret, DEC);
-    format_num(0, DEC);
     print_char('\n');
 
     return 0;

@@ -33,7 +33,7 @@ char num_to_hex(uint8_t num) {
 }
 
 size_t format_ten(char buff[20], int64_t num) {
-   uint8_t negative = (num > 0) ? 0 : 1;
+   uint8_t negative = (num < 0) ? 1 : 0;
    num = abs(num);
    size_t index = 19;
 
