@@ -9,9 +9,11 @@
 
 #define STACK_SIZE 1024 * 1024  // 1 MB
 
-const int FLAGS = CLONE_VM | CLONE_FS | CLONE_FILES
-    | CLONE_SIGHAND  
-    | CLONE_THREAD | CLONE_IO;
+const int FLAGS 
+    = CLONE_VM          // Share same adress space
+    | CLONE_FS          // Share file system information (i.e. where is this called)
+    | CLONE_THREAD      // Make this in the same thread group (aka appear as a child thread)
+    | CLONE_SIGHAND;    // Share signal handler (required by CLONE_THREAD)
 
 int main(void) {
     void *stack = mmap(
