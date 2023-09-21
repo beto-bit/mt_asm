@@ -4,11 +4,11 @@
 #include "fmt/print.h"
 #include "utils.h"
 
-void _start(void) {
-    int64_t num = 0x69420;
+int main(size_t argc, char *argv[]) {
+    for (size_t idx = 0; idx < argc; ++idx) {
+        print_str(argv[idx]);
+        print_char('\n');
+    }
 
-    format_num(num, HEX);
-    print_char('\n');
-
-    exit(0);
+    return 0;
 }

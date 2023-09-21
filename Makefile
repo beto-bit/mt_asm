@@ -3,7 +3,7 @@ BUILD_DIR := build
 INCLUDE_DIR := include
 
 C_SRCS := src/main.c src/utils/utils.c src/fmt/print.c
-AS_SRCS := src/low/calls.asm src/low/utils.asm
+AS_SRCS := src/start.asm src/low/calls.asm src/low/utils.asm
 
 C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)
 AS_OBJS := $(AS_SRCS:%.asm=${BUILD_DIR}/%.asm.o)
