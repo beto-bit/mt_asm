@@ -97,7 +97,7 @@ bare_clone2:
     jz .thread_start
     ret ; return home
 
-.thread_start
+.thread_start:
     ; The ABI sugests this and glibc does it
     xor ebp, ebp
 
