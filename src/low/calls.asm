@@ -1,6 +1,6 @@
 global write, exit
 global mmap, munmap
-global bare_clone
+global bare_clone, bare_clone2
 
 ; Basic utilities
 %define SYS_WRITE 1
@@ -49,7 +49,6 @@ munmap:
     ret
 
 
-; Implementation highly inspired (copied) from https://github.com/bminor/glibc/blob/master/sysdeps/unix/sysv/linux/x86_64/clone.S
 ; Also, using this trick: https://nullprogram.com/blog/2015/05/15/
 ; using clone instead of clone3 because is easier
 
@@ -74,3 +73,43 @@ bare_clone:
     syscall
 
     ret
+
+; the same as before but easier to use and less error prone
+; Implementation highly inspired (copied) from https://github.com/bminor/glibc/blob/master/sysdeps/unix/sysv/linux/x86_64/clone.S
+; rdi: flags
+; rsi: child_stack
+; rdx: function
+; rcx: function argument
+bare_clone2:
+    ; Align stack to 16 bytes
+    and rsi, 0xffffffffffffff00
+
+    ; Save the function and argument across the syscall
+    sub rsi, 16
+    mov [rsi], rcx      ; the argument
+    mov [rsi + 8], rdx  ; the function
+
+    ; Do the syscall
+    mov eax, SYS_CLONE
+    syscall
+
+    test rax, rax   ; check if in child or parent
+    jz .thread_start
+    ret ; return home
+
+.thread_start
+    ; The ABI sugests this and glibc does it
+    xor ebp, ebp
+
+    pop rdi ; the argument
+    pop rax ; the function
+
+    ; call the the function
+    call rax
+
+    ; exit with return value from function
+    mov edi, eax
+    mov eax, SYS_EXIT
+    syscall
+    hlt
+

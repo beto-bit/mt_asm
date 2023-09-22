@@ -9,6 +9,11 @@
 
 #define STACK_SIZE 1024 * 1024  // 1 MB
 
+int f(void *arg) {
+    print_str("Hi from child!\n");
+    return 0;
+}
+
 const int FLAGS 
     = CLONE_VM          // Share same adress space
     | CLONE_FS          // Share file system information (i.e. where is this called)
@@ -25,23 +30,14 @@ int main(void) {
         0
     );
 
-    int ret = bare_clone(
-        FLAGS,
-        (uint8_t*) stack + STACK_SIZE,
-        NULL,
-        NULL,
-        NULL
-    );
+    int tid = bare_clone2(FLAGS, (uint8_t*)stack + STACK_SIZE, f, NULL);
 
-    // Child
-    if (ret == 0) {
-        print_str("Hi, I'm your kid!\n");
-        exit(0);
-    }
-
-    print_str("Thread created\tID: ");
-    format_num(ret, DEC);
+    print_str("Child's TID: ");
+    format_num(tid, DEC);
     print_char('\n');
+
+    // Doesn't work quite yet because we don't have ways of waiting the thread
+    // munmap(stack, STACK_SIZE);
 
     return 0;
 }
