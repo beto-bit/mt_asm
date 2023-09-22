@@ -8,7 +8,7 @@
 
 struct Thread {
     int tid;
-    uint8_t finished;
+    volatile uint8_t finished;
     void *stack;
     size_t stack_size;
 };

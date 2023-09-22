@@ -13,6 +13,8 @@ struct ThreadInfo {
     void *arg;
 };
 
+struct ThreadInfo thrd_info;
+
 static int start_thread(void *arg) {
     struct ThreadInfo info = *(struct ThreadInfo*) arg;
 
@@ -38,11 +40,12 @@ void create_thread(struct Thread *thrd, int (*fn)(void *), void *arg) {
     thrd->stack_size = STACK_SIZE;
     thrd->finished = 0;
 
-    struct ThreadInfo thrd_info = {
-        .thrd = thrd,
-        .fn = fn,
-        .arg = arg
-    };
+    // Doing this via global variable because then it gets deallocated when
+    // returning from this function and memory gets corrupted
+    // Asign values of threadinfo
+    thrd_info.thrd = thrd;
+    thrd_info.fn = fn;
+    thrd_info.arg = arg;
 
     int tid = bare_clone2(FLAGS, (uint8_t*)stack + STACK_SIZE, start_thread, &thrd_info);
 
