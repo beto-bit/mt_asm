@@ -11,6 +11,8 @@ struct Thread {
     volatile uint8_t finished;
     void *stack;
     size_t stack_size;
+    int (*fn)(void *);
+    void *arg;
 };
 
 void create_thread(struct Thread *thrd, int (*fn)(void*), void *arg);

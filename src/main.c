@@ -4,22 +4,38 @@
 #include "fmt/print.h"
 #include "thr/thread.h"
 
+
+#define NO_THREADS 10
+int count = 0;
+
+
 int f(void *arg) {
-    print_str("I'm running from another thread!\n");
+    int* inc = (int*) arg;
+
+    for (int i = 0; i < 1000000; ++i) {
+        count += *inc;
+    }
+
     return 0;
 }
 
 
 int main(void) {
-    struct Thread thrd;
+    struct Thread thrd[NO_THREADS];
 
-    create_thread(&thrd, f, NULL);
+    int inc = 10;
 
-    print_str("Thread ID: ");
-    format_num(thrd.tid, DEC);
+    // Create threads
+    for (size_t i = 0; i < NO_THREADS; ++i)
+        create_thread(thrd + i, f, &inc);
+
+    // Wait for threads
+    for (size_t i = 0; i < NO_THREADS; ++i)
+        clean_thread(thrd + i);
+
+    print_str("Total count: ");
+    format_num(count, DEC);
     print_char('\n');
-
-    clean_thread(&thrd);
 
     return 0;
 }
