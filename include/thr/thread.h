@@ -2,13 +2,14 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "calls.h"
 #include "flags.h"
 
 struct Thread {
     int tid;
-    volatile uint8_t finished;
+    volatile bool finished;
     void *stack;
     size_t stack_size;
     int (*fn)(void *);

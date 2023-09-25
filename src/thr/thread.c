@@ -14,7 +14,7 @@ static int start_thread(void *arg) {
     int exit_code = thrd->fn(thrd->arg);
 
     // Finish the thread
-    thrd->finished = 1;
+    thrd->finished = true;
 
     return exit_code;
 }
@@ -33,7 +33,7 @@ void create_thread(struct Thread *thrd, int (*fn)(void *), void *arg) {
 
     thrd->stack = stack;
     thrd->stack_size = STACK_SIZE;
-    thrd->finished = 0;
+    thrd->finished = false;
     thrd->fn = fn;
     thrd->arg = arg;
 
