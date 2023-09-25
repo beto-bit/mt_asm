@@ -1,8 +1,10 @@
 #include <stdint.h>
+
 #include "calls.h"
-#include "fmt/print.h"
 #include "thr/thread.h"
+#include "thr/flags.h"
 #include "mem/flags.h"
+
 
 #define STACK_SIZE 1024 * 1024  // 1 MB
 #define FLAGS CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD

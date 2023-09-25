@@ -3,9 +3,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "calls.h"
-#include "flags.h"
-
 struct Thread {
     int tid;
     volatile uint8_t finished;
