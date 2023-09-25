@@ -5,16 +5,6 @@
 #include "fmt/print.h"
 #include "utils.h"
 
-size_t strlen(const char* str) {
-    size_t len = 0;
-
-    while (str[len]) {
-        ++len;
-    }
-
-    return len;
-}
-
 ssize_t print_str_n(const char* str, size_t len) {
     return write(1, str, len);
 }
@@ -103,4 +93,7 @@ void format_num(int64_t num, enum FormatType format_type) {
 
         return;
     }
+}
+
+void printfmt(const char *str, int64_t num, enum FormatType format_type) {
 }

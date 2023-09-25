@@ -8,7 +8,6 @@
 void print_char(char c);
 
 // Defined in C file
-size_t strlen(const char* str);
 ssize_t print_str_n(const char* str, size_t len);
 ssize_t print_str(const char* str);
 
@@ -24,3 +23,8 @@ enum FormatType {
 };
 
 void format_num(int64_t num, enum FormatType format_type);
+
+// Buffered format
+/// Example:
+/// printfmt("There are {} users", 42, DEC);
+void printfmt(const char *str, int64_t num, enum FormatType format_type);

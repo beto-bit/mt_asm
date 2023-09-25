@@ -39,3 +39,23 @@ uint8_t log(uint64_t num, uint32_t base) {
     return count;
 }
 
+size_t strlen(const char* str) {
+    size_t len = 0;
+
+    while (str[len]) {
+        ++len;
+    }
+
+    return len;
+}
+
+size_t find_adjacent_chars(const char *str, char c) {
+    size_t len = strlen(str);
+
+    for (size_t i = 0, j = 1; j < len; ++i, ++j) {
+        if (c == str[i] && str[i] == str[j])
+            return i;
+    }
+
+    return -1;
+}
