@@ -83,7 +83,7 @@ bare_clone:
 ; rcx: function argument
 bare_clone2:
     ; Align stack to 16 bytes
-    and rsi, 0xffffffffffffff00
+    and sil, 0
 
     ; Save the function and argument across the syscall
     sub rsi, 16
@@ -135,7 +135,7 @@ clone3:
 .thread_start:
     ; the ABI suggets this I guess
     xor ebp, ebp
-    and rsp, 0xffffffffffffff00
+    and spl, 0
 
     ; set up the argument and call the function
     mov rdi, r8

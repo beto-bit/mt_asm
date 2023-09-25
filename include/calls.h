@@ -34,7 +34,6 @@ int bare_clone2(
     void *arg
 );
 
-/// Clone 3 copy from glibc
 struct clone_args {
     size_t flags;
     void *pidfd;        // where to store PID file descriptor
@@ -46,6 +45,7 @@ struct clone_args {
     size_t tls;         // Location of new TLS
 };
 
+/// Clone 3 copy from glibc
 int clone3(
     struct clone_args *cl_args,
     size_t size,
