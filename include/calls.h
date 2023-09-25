@@ -30,6 +30,25 @@ int bare_clone(
 int bare_clone2(
     int flags,
     void *stack,
-    int (*fn)(void*),
+    int (*fn) (void *arg),
+    void *arg
+);
+
+/// Clone 3 copy from glibc
+struct clone_args {
+    size_t flags;
+    size_t pidfd;       // where to store PID file descriptor
+    size_t child_tid;   // where to store child's TID
+    size_t parent_tid;  // ^- The same
+    size_t exit_signal; // Signal delivered to parent on child termination
+    size_t stack;
+    size_t stack_size;
+    size_t tls;         // Location of new TLS
+};
+
+int clone3(
+    struct clone_args *cl_args,
+    size_t size,
+    int (*fn) (void *arg),
     void *arg
 );
