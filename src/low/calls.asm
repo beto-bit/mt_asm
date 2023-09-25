@@ -1,6 +1,6 @@
 global write, exit
 global mmap, munmap
-global bare_clone, bare_clone2
+global bare_clone, bare_clone2, clone3
 
 ; Basic utilities
 %define SYS_WRITE 1

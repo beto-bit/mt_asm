@@ -37,9 +37,16 @@ void create_thread(struct Thread *thrd, int (*fn)(void *), void *arg) {
     thrd->fn = fn;
     thrd->arg = arg;
 
-    int tid = bare_clone2(FLAGS, (uint8_t*)stack + STACK_SIZE, start_thread, thrd);
-
-    thrd->tid = tid;
+    thrd->tid = clone3(
+        &(struct clone_args) {
+            .flags = FLAGS,
+            .stack = stack,
+            .stack_size = STACK_SIZE
+        },
+        sizeof(struct clone_args),
+        start_thread,
+        thrd
+    );
 }
 
 
@@ -47,4 +54,3 @@ void clean_thread(struct Thread *thrd) {
     while (!thrd->finished);
     munmap(thrd->stack, thrd->stack_size);
 }
-
