@@ -18,7 +18,7 @@ bool append_byte(struct MemBuff *membuff, uint8_t byte) {
     return false;
 }
 
-size_t append_buff(struct MemBuff *membuff, uint8_t *buff, size_t size) {
+size_t append_buff(struct MemBuff *membuff, const uint8_t *buff, size_t size) {
     size_t idx;
 
     // Copy the bytes

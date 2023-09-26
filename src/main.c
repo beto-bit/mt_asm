@@ -36,13 +36,8 @@ int main(void) {
     for (size_t i = 0; i < NO_THREADS; ++i)
         clean_thread(thrd + i);
 
-    print_str("Atomic count:\t\t");
-    format_num(atm_count, DEC);
-    print_char('\n');
-
-    print_str("Non-atomic count:\t");
-    format_num(count, DEC);
-    print_char('\n');
+    printfmt("Atomic count: {}\n", atm_count, DEC);
+    printfmt("Non-atomic count: {}\n", count, DEC);
 
     return 0;
 }

@@ -16,5 +16,5 @@ size_t remaining_bytes(struct MemBuff *membuff);
 bool append_byte(struct MemBuff *membuff, uint8_t byte);
 
 /// Returns the remaining number of bytes to append
-size_t append_buff(struct MemBuff *membuff, uint8_t *buff, size_t size);
+size_t append_buff(struct MemBuff *membuff, const uint8_t *buff, size_t size);
 

@@ -22,7 +22,9 @@ enum FormatType {
     HEX
 };
 
-void format_num(int64_t num, enum FormatType format_type);
+/// Digits are inserted from the end to the start of the buffer
+/// Returns the offset from the start to the first digit
+size_t format_num(char buff[20], int64_t num, enum FormatType format_type);
 
 // Buffered format
 /// Example:
