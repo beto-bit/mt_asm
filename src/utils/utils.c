@@ -1,8 +1,10 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <wchar.h>
 
 #include "utils.h"
+
 
 void copy_buff(const void *src, void *dst, size_t n) {
     const uint8_t *src_buff = (const uint8_t*) src;

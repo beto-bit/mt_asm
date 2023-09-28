@@ -4,6 +4,7 @@
 
 #include "mem/buffering.h"
 
+
 size_t remaining_bytes(struct MemBuff *membuff) {
     return membuff->capacity - membuff->length;
 }

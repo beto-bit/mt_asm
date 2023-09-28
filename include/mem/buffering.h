@@ -4,12 +4,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
 struct MemBuff {
     uint8_t *buff;
     size_t length;
     size_t capacity;
 };
 
+/// Returns the remaining bytes in membuff.
 size_t remaining_bytes(struct MemBuff *membuff);
 
 /// Appends a single byte. Returns false on error.

@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <sys/types.h>
 
+
 // Defined in assembly
 void print_char(char c);
 
@@ -11,10 +12,18 @@ void print_char(char c);
 ssize_t print_str_n(const char* str, size_t len);
 ssize_t print_str(const char* str);
 
+
 // Formatting functions
 char num_to_hex(uint8_t num);
+
+/// Stores the formatted number into buff.
+/// Returns the offset to the first character.
 size_t format_ten(char buff[20], int64_t num);
+
+/// Stores the formatted number into buff.
+/// Returns the offset to the first character.
 size_t format_hex(char buff[16], uint64_t num);
+
 
 // Formatting types
 enum FormatType {

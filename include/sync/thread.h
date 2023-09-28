@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
 struct Thread {
     int tid;
     volatile bool finished;
