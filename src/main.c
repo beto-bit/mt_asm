@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <stdint.h>
 #include <stdatomic.h>
 
 #include "fmt/print.h"
