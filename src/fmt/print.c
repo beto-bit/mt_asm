@@ -100,7 +100,7 @@ struct MemBuff stdout_membuff = {
     .capacity = 1024
 };
 
-void append_format_num(
+static void append_format_num(
     struct MemBuff *membuff,
     int64_t num,
     enum FormatType format_type
