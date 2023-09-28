@@ -36,6 +36,9 @@ noreturn void exit(int exit_code);
 void *mmap(void *start, size_t len, int prot, int flags, int fd, off_t off);
 int munmap(void *addr, size_t len);
 
+// Time
+int nanosleep(const struct timespec *req, struct timespec *rem);
+
 
 /// If you are in the parent thread, it returns the child TID.
 /// If you are in the child, it returns 0.

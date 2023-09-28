@@ -1,5 +1,6 @@
 global write, exit
 global mmap, munmap
+global nanosleep
 global bare_clone, bare_clone2, clone3
 global futex
 
@@ -17,6 +18,7 @@ global futex
 %define SYS_CLONE3 435
 
 ; Syncing
+%define SYS_NANOSLEEP 35
 %define SYS_FUTEX 202
 
 
@@ -54,6 +56,14 @@ mmap:
 ; the same signature as libc equivalent
 munmap:
     mov eax, SYS_MUNMAP
+    syscall
+    ret
+
+
+; raw nanosleep syscall
+; the same signature as libc equivalent
+nanosleep:
+    mov eax, SYS_NANOSLEEP
     syscall
     ret
 

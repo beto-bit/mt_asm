@@ -6,7 +6,8 @@ C_SRCS := src/main.c \
 		  src/utils/utils.c src/utils/string.c \
 		  src/fmt/print.c \
 		  src/sync/thread.c \
-		  src/mem/buffering.c
+		  src/mem/buffering.c \
+		  src/time/time.c
 
 AS_SRCS := src/start.asm src/low/calls.asm src/low/utils.asm
 

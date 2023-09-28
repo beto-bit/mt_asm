@@ -71,6 +71,9 @@ void clean_thread(struct Thread *thrd) {
 void join_thread(struct Thread *thrd) {
     // Basically, only wait if not finished
     if (!thrd->finished) {
+        // Apparently, according to glibc, the kernel notifies a process
+        // that uses CLONE_CHILD_CLEARTID via a futex wake-up. The kernel
+        // sets the value at that memory location to 0.
         futex(
             (uint32_t*) &thrd->tid,
             FUTEX_WAIT_BITSET | FUTEX_CLOCK_REALTIME,
