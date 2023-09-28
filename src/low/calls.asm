@@ -3,6 +3,7 @@ global mmap, munmap
 global bare_clone, bare_clone2, clone3
 global futex
 
+
 ; Basic utilities
 %define SYS_WRITE 1
 %define SYS_EXIT 60
@@ -32,11 +33,13 @@ write:
     syscall
     ret
 
+
 ; exits with code in rdi
 exit:
     mov eax, SYS_EXIT
     syscall
     hlt
+
 
 ; raw mmap syscall
 ; the same signature as libc equivalent
@@ -45,6 +48,7 @@ mmap:
     mov r10, rcx    ; the only different register
     syscall
     ret
+
 
 ; raw mmunmap syscall
 ; the same signature as libc equivalent
@@ -78,6 +82,7 @@ bare_clone:
     syscall
 
     ret
+
 
 ; the same as before but easier to use and less error prone
 ; Implementation highly inspired (copied) from https://github.com/bminor/glibc/blob/master/sysdeps/unix/sysv/linux/x86_64/clone.S
