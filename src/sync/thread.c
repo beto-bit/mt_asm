@@ -1,9 +1,9 @@
 #include <stdint.h>
 
-#include "calls.h"
-#include "thr/futex.h"
-#include "thr/thread.h"
-#include "thr/flags.h"
+#include "low/calls.h"
+#include "sync/futex.h"
+#include "sync/thread.h"
+#include "sync/flags.h"
 #include "mem/flags.h"
 
 

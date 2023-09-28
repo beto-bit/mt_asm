@@ -2,8 +2,12 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-C_SRCS := src/main.c src/utils/utils.c src/fmt/print.c src/thr/thread.c \
+C_SRCS := src/main.c \
+		  src/utils/utils.c \
+		  src/fmt/print.c \
+		  src/sync/thread.c \
 		  src/mem/buffering.c
+
 AS_SRCS := src/start.asm src/low/calls.asm src/low/utils.asm
 
 C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)

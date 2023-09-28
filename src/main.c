@@ -3,7 +3,7 @@
 #include <stdatomic.h>
 
 #include "fmt/print.h"
-#include "thr/thread.h"
+#include "sync/thread.h"
 
 
 #define NO_THREADS 10
