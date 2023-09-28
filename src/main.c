@@ -34,7 +34,7 @@ int main(void) {
 
     // Wait for threads
     for (size_t i = 0; i < NO_THREADS; ++i)
-        clean_thread(thrd + i);
+        join_thread(thrd + i);
 
     print_str("Atomic count:\t\t");
     format_num(atm_count, DEC);

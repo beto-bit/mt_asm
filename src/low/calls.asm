@@ -1,6 +1,7 @@
 global write, exit
 global mmap, munmap
 global bare_clone, bare_clone2, clone3
+global futex
 
 ; Basic utilities
 %define SYS_WRITE 1
@@ -13,6 +14,9 @@ global bare_clone, bare_clone2, clone3
 ; Forking
 %define SYS_CLONE 56
 %define SYS_CLONE3 435
+
+; Syncing
+%define SYS_FUTEX 202
 
 
 section .text
@@ -147,3 +151,10 @@ clone3:
     syscall
     hlt
 
+
+; Basic futex wrapper. All arguments should be in their places.
+futex:
+    mov r10, rcx
+    mov eax, SYS_FUTEX
+    syscall
+    ret
