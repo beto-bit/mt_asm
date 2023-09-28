@@ -1,14 +1,13 @@
 #include <stdint.h>
 
 #include "low/calls.h"
-#include "sync/futex.h"
+#include "sync/clone_flags.h"
+#include "sync/futex_flags.h"
 #include "sync/thread.h"
-#include "sync/flags.h"
 #include "mem/flags.h"
 
 
 #define STACK_SIZE 1024 * 1024  // 1 MB
-#define FLAGS CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD
 
 const int CLONE_FLAGS
     = CLONE_VM | CLONE_FS | CLONE_FILES         // Share address space
@@ -20,9 +19,10 @@ const int CLONE_FLAGS
 static int start_thread(void *arg) {
     struct Thread *thrd = (struct Thread*) arg;
 
+    // Call the actual function
     int exit_code = thrd->fn(thrd->arg);
 
-    // Finish the thread
+    // Mark the thread as finished
     thrd->finished = true;
 
     return exit_code;
@@ -69,6 +69,7 @@ void clean_thread(struct Thread *thrd) {
 }
 
 void join_thread(struct Thread *thrd) {
+    // Basically, only wait if not finished
     if (!thrd->finished) {
         futex(
             (uint32_t*) &thrd->tid,

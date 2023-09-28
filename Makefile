@@ -3,7 +3,7 @@ BUILD_DIR := build
 INCLUDE_DIR := include
 
 C_SRCS := src/main.c \
-		  src/utils/utils.c \
+		  src/utils/utils.c src/utils/string.c \
 		  src/fmt/print.c \
 		  src/sync/thread.c \
 		  src/mem/buffering.c
