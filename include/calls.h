@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 #include <stdnoreturn.h>
 #include <sys/types.h>
 
@@ -30,6 +31,42 @@ int bare_clone(
 int bare_clone2(
     int flags,
     void *stack,
-    int (*fn)(void*),
+    int (*fn) (void *arg),
     void *arg
+);
+
+struct clone_args {
+    size_t flags;
+    void *pidfd;        // where to store PID file descriptor
+    void *child_tid;    // where to store child's TID
+    void *parent_tid;   // ^- The same
+    size_t exit_signal; // Signal delivered to parent on child termination
+    void *stack;
+    size_t stack_size;
+    size_t tls;         // Location of new TLS
+};
+
+/// Clone 3 copy from glibc
+int clone3(
+    struct clone_args *cl_args,
+    size_t size,
+    int (*fn) (void *arg),
+    void *arg
+);
+
+/// Futex copied from the man page (that's even worse)
+typedef long time_t;
+
+struct timespec {
+    time_t tv_sec;  // seconds
+    long tv_nsec;   // nanoseconds
+};
+
+int futex(
+    uint32_t *uaddr,
+    int futex_op,
+    uint32_t val,
+    const struct timespec *timeout,
+    uint32_t *uaddr2,
+    uint32_t val3
 );

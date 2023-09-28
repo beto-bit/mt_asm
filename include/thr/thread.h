@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "calls.h"
-#include "flags.h"
-
 struct Thread {
     int tid;
     volatile bool finished;
@@ -18,4 +15,5 @@ struct Thread {
 
 void create_thread(struct Thread *thrd, int (*fn)(void*), void *arg);
 void clean_thread(struct Thread *thrd);
+void join_thread(struct Thread *thrd);
 

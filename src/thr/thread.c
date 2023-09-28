@@ -1,11 +1,20 @@
 #include <stdint.h>
+
 #include "calls.h"
-#include "fmt/print.h"
+#include "thr/futex.h"
 #include "thr/thread.h"
+#include "thr/flags.h"
 #include "mem/flags.h"
+
 
 #define STACK_SIZE 1024 * 1024  // 1 MB
 #define FLAGS CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD
+
+const int CLONE_FLAGS
+    = CLONE_VM | CLONE_FS | CLONE_FILES         // Share address space
+    | CLONE_SIGHAND | CLONE_THREAD              // Signaling
+    | CLONE_PARENT_SETTID | CLONE_CHILD_SETTID  // Store child's TID
+    | CLONE_CHILD_CLEARTID;                     // Clear the child's TID when child exits
 
 
 static int start_thread(void *arg) {
@@ -37,9 +46,20 @@ void create_thread(struct Thread *thrd, int (*fn)(void *), void *arg) {
     thrd->fn = fn;
     thrd->arg = arg;
 
-    int tid = bare_clone2(FLAGS, (uint8_t*)stack + STACK_SIZE, start_thread, thrd);
+    thrd->tid = clone3(
+        &(struct clone_args) {
+            .flags = CLONE_FLAGS,
+            .stack = stack,
+            .stack_size = STACK_SIZE,
 
-    thrd->tid = tid;
+            // Store TID in the same place for parent and child
+            .child_tid = &thrd->tid,
+            .parent_tid = &thrd->tid,
+        },
+        sizeof(struct clone_args),
+        start_thread,
+        thrd
+    );
 }
 
 
@@ -48,3 +68,17 @@ void clean_thread(struct Thread *thrd) {
     munmap(thrd->stack, thrd->stack_size);
 }
 
+void join_thread(struct Thread *thrd) {
+    if (!thrd->finished) {
+        futex(
+            (uint32_t*) &thrd->tid,
+            FUTEX_WAIT_BITSET | FUTEX_CLOCK_REALTIME,
+            thrd->tid,
+            NULL,
+            NULL,
+            FUTEX_BITSET_MATCH_ANY
+        );
+    }
+
+    munmap(thrd->stack, thrd->stack_size);
+}

@@ -1,6 +1,7 @@
 global write, exit
 global mmap, munmap
-global bare_clone, bare_clone2
+global bare_clone, bare_clone2, clone3
+global futex
 
 ; Basic utilities
 %define SYS_WRITE 1
@@ -12,6 +13,10 @@ global bare_clone, bare_clone2
 
 ; Forking
 %define SYS_CLONE 56
+%define SYS_CLONE3 435
+
+; Syncing
+%define SYS_FUTEX 202
 
 
 section .text
@@ -82,7 +87,7 @@ bare_clone:
 ; rcx: function argument
 bare_clone2:
     ; Align stack to 16 bytes
-    and rsi, 0xffffffffffffff00
+    and sil, 0
 
     ; Save the function and argument across the syscall
     sub rsi, 16
@@ -113,3 +118,43 @@ bare_clone2:
     syscall
     hlt
 
+
+; Clone 3 copy from glibc: https://codebrowser.dev/glibc/glibc/sysdeps/unix/sysv/linux/x86_64/clone3.S.html
+; rdi: struct clone_args *cl_args
+; rsi: size_t size
+; rdx: function
+; rcx: arg
+clone3:
+    ; store arg in r8 which is preserved across the syscall
+    ; rdx is also preserved
+    mov r8, rcx
+
+    mov eax, SYS_CLONE3
+    syscall
+
+    test rax, rax
+    jz .thread_start
+    ret
+
+.thread_start:
+    ; the ABI suggets this I guess
+    xor ebp, ebp
+    and spl, 0
+
+    ; set up the argument and call the function
+    mov rdi, r8
+    call rdx
+
+    ; exit with return value from function
+    mov edi, eax
+    mov eax, SYS_EXIT
+    syscall
+    hlt
+
+
+; Basic futex wrapper. All arguments should be in their places.
+futex:
+    mov r10, rcx
+    mov eax, SYS_FUTEX
+    syscall
+    ret
