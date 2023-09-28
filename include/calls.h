@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 #include <stdnoreturn.h>
 #include <sys/types.h>
 
@@ -51,4 +52,21 @@ int clone3(
     size_t size,
     int (*fn) (void *arg),
     void *arg
+);
+
+/// Futex copied from the man page (that's even worse)
+typedef long time_t;
+
+struct timespec {
+    time_t tv_sec;  // seconds
+    long tv_nsec;   // nanoseconds
+};
+
+int futex(
+    uint32_t *uaddr,
+    int futex_op,
+    uint32_t val,
+    const struct timespec *timeout,
+    uint32_t *uaddr2,
+    uint32_t val3
 );

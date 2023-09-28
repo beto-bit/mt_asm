@@ -34,7 +34,7 @@ int main(void) {
 
     // Wait for threads
     for (size_t i = 0; i < NO_THREADS; ++i)
-        clean_thread(thrd + i);
+        join_thread(thrd + i);
 
     printfmt("Atomic count: {}\n", atm_count, DEC);
     printfmt("Non-atomic count: {}\n", count, DEC);
