@@ -81,5 +81,8 @@ int futex(
     uint32_t val3
 );
 
+// The only real utility function
+void print_char(char c);
+
 } // extern "C"
 } // namespace low

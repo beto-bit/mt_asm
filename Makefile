@@ -2,9 +2,6 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-LIB := beto
-LIB_DIR := beto
-
 SRCS := src/main.cpp
 
 OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
@@ -13,14 +10,15 @@ DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
 CXX := g++
 CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib \
 			-I ${INCLUDE_DIR} \
-			-I. -L ${LIB_DIR} -l ${LIB} \
+			-I. -Lbeto -lbeto \
+			-Lsym -lsym \
 		    -Wall -Wextra -pedantic -Warray-bounds \
 		    -Wdeprecated -Wcast-qual \
 		    -Wundef -Wunused -Wshadow \
 		    -Wdouble-promotion -Wfloat-equal \
 		    -MP -MD
 
-${TARGET}: ${OBJS} ${LIB_DIR}/lib${LIB}.a
+${TARGET}: ${OBJS} beto/libbeto.a sym/libsym.a
 	@ echo "Linking..."
 	@ ld $^ -o $@
 
@@ -29,6 +27,11 @@ ${BUILD_DIR}/%.o: %.cpp
 	@ echo "Compiling $<"
 	@ ${CXX} ${CXXFLAGS} $< -c -o $@
 
+beto/libbeto.a:
+	${MAKE} -C beto
+
+sym/libsym.a:
+	${MAKE} -C sym
 
 compile_flags.txt: Makefile
 	@ echo ${CXXFLAGS} | tr ' ' '\n' > $@
