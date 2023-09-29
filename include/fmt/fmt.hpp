@@ -1,18 +1,16 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <span>
 #include <string_view>
 #include <type_traits>
 
 #include "math/util.hpp"
 
-
-// Basic printing
-void print(char c);
-void print(std::string_view str);
 
 // Formatting
 constexpr char num_to_hex(std::integral auto num) {
@@ -43,7 +41,8 @@ concept is_format_kind = std::is_same_v<T, DEC> || std::is_same_v<T, HEX>;
 /// In the case of DEC, includes the '-' sign.
 template<typename T>
 requires is_format_kind<T>
-constexpr std::uint8_t no_digits(std::integral auto num) {
+constexpr std::uint8_t no_digits(std::integral auto num)
+{
     if constexpr (std::is_same_v<T, DEC>)
     {
         const bool is_negative = (num < 0) ? true : false;
@@ -55,6 +54,7 @@ constexpr std::uint8_t no_digits(std::integral auto num) {
         return math::integer_log(math::abs(num), 16u);
     }
 }
+
 
 /// Returns an array of characters depending on the specified
 /// format type.
@@ -100,3 +100,16 @@ format_num(std::integral auto num)
     }
 }
 
+
+/// Gets a string_view from a span of characters
+constexpr std::string_view string_from_span(std::span<const char> spn) {
+    const auto null_terminator = std::find(spn.begin(), spn.end(), '\0');
+
+    // Not found a null terminator
+    [[unlikely]]
+    if (null_terminator == spn.end()) {
+        return { spn.data(), spn.size() };
+    }
+
+    return { spn.data() };
+}
