@@ -1,12 +1,7 @@
-#include <span>
-
-#include "math/util.hpp"
 #include "fmt/print.hpp"
 
 int main() {
-    printfmt<DEC>("", -69);
-    printfmt<HEX>("", 0x13420);
-
+    printfmt<DEC>("Hi mum, my number is: {}\n", 42);
     return 0;
 }
 
