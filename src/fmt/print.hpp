@@ -23,14 +23,20 @@ constexpr char num_to_hex(std::integral auto num) {
 
 
 // Why do I do this
-struct DEC;
-struct HEX;
+struct DEC {
+    static constexpr size_t size = 20;
+};
 
+struct HEX {
+    static constexpr size_t size = 16;
+};
+
+/// Returns an array of characters depending on the specified
+/// format type.
+/// The array is of size 20 if DEC, 16 if HEX
 template<typename T>
 requires std::is_same_v<T, DEC> || std::is_same_v<T, HEX>
-// If DEC size is 20
-// If HEX size is 16
-std::array<int, std::is_same_v<T, DEC> ? 2 : 1>
+std::array<int, T::size>
 killme() {
     if constexpr (std::is_same_v<T, DEC>) {
         return {0, 1};
