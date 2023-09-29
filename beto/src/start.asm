@@ -1,4 +1,4 @@
-extern main
+extern cpp_entry
 
 section .text
 
@@ -6,7 +6,7 @@ global _start
 _start:
     mov rdi, [rsp]      ; argc
     lea rsi, [rsp + 8]  ; argv
-    call main
+    call cpp_entry
 
     ; exit with code
     mov edi, eax

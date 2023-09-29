@@ -2,44 +2,33 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-C_SRCS := src/main.c \
-		  src/utils/utils.c src/utils/string.c \
-		  src/fmt/print.c \
-		  src/sync/thread.c \
-		  src/mem/buffering.c \
-		  src/time/time.c
+LIB := beto
+LIB_DIR := beto
 
-AS_SRCS := src/start.asm src/low/calls.asm src/low/utils.asm
+SRCS := src/main.cpp
 
-C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)
-AS_OBJS := $(AS_SRCS:%.asm=${BUILD_DIR}/%.asm.o)
-DEPS := $(C_SRCS:%.c=${BUILD_DIR}/%.d)
+OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
+DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
 
-AS := nasm
-ASFLAGS := -f elf64 -g
+CXX := g++
+CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib \
+			-I ${INCLUDE_DIR} \
+			-I. -L ${LIB_DIR} -l ${LIB} \
+		    -Wall -Wextra -pedantic -Warray-bounds \
+		    -Wdeprecated -Wcast-qual \
+		    -Wundef -Wunused -Wshadow \
+		    -Wdouble-promotion -Wfloat-equal \
+		    -MP -MD
 
-CC := gcc
-CFLAGS := -O2 -g -std=c11 -ffreestanding -nostdlib \
-		  -I ${INCLUDE_DIR} \
-		  -Wall -Wextra -pedantic -Warray-bounds \
-		  -Wdeprecated -Wcast-qual \
-		  -Wundef -Wunused -Wshadow \
-		  -Wdouble-promotion -Wfloat-equal \
-		  -MP -MD
-
-${TARGET}: ${C_OBJS} ${AS_OBJS}
+${TARGET}: ${OBJS} ${LIB_DIR}/lib${LIB}.a
 	@ echo "Linking..."
 	@ ld $^ -o $@
 
-${BUILD_DIR}/%.o: %.c
+${BUILD_DIR}/%.o: %.cpp
 	@ mkdir -p $(dir $@)
 	@ echo "Compiling $<"
-	@ ${CC} ${CFLAGS} $< -c -o $@
+	@ ${CXX} ${CXXFLAGS} $< -c -o $@
 
-${BUILD_DIR}/%.asm.o: %.asm
-	@ mkdir -p $(dir $@)
-	@ echo "Compiling $<"
-	@ ${AS} ${ASFLAGS} $< -o $@
 
 compile_flags.txt: Makefile
 	@ echo ${CFLAGS} | tr ' ' '\n' > $@
@@ -54,9 +43,9 @@ clean:
 
 .PHONY: test
 test:
-	@echo ${C_SRCS}
+	@echo ${SRCS}
 	@echo ${AS_SRCS}
-	@echo ${C_OBJS}
+	@echo ${OBJS}
 	@echo ${AS_OBJS}
 	@echo ${DEPS}
 
