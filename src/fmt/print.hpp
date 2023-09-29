@@ -73,20 +73,14 @@ format_num(std::integral auto num)
         size_t index = no_digits<DEC>(num) - 1;
         num = math::abs(num);
 
-        while (true) {
-            auto div = num / 10;
+        for (; num != 0; --index) {
             auto mod = num % 10;
-
             buff[index] = num_to_hex(mod);
-
-            if (!div) break;
-
-            --index;
-            num = div;
+            num /= 10;
         }
 
         if (is_negative)
-            buff[--index] = '-';
+            buff[index] = '-';
 
         return buff;
     }
@@ -96,16 +90,10 @@ format_num(std::integral auto num)
 
         size_t index = no_digits<HEX>(num) - 1;
 
-        while (true) {
-            auto div = num / 16;
+        for (; num != 0; --index) {
             auto mod = num % 16;
-
             buff[index] = num_to_hex(mod);
-
-            if (!div) break;
-
-            --index;
-            num = div;
+            num /= 16;
         }
 
         return buff;
