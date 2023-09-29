@@ -1,5 +1,6 @@
 #pragma once
 
+#include <concepts>
 #include <string_view>
 
 #include "fmt/fmt.hpp"
@@ -7,6 +8,7 @@
 // Basic printing
 void print(char c);
 void print(std::string_view str);
+void println(std::string_view str);
 
 /// Formatted printing (with strings)
 void printfmt(std::string_view str, std::string_view fmt_str);
