@@ -2,7 +2,8 @@ TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
 
-SRCS := src/main.cpp
+SRCS := src/main.cpp \
+		src/fmt/print.cpp
 
 OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
