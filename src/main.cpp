@@ -1,4 +1,7 @@
+#include "beto/calls.h"
+
 int main() {
-    return 16;
+    low::write(1, "hi\n", 3);
+    return 0;
 }
 
