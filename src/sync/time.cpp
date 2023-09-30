@@ -4,7 +4,7 @@
 constexpr int MAX_NANOS = 999999999;
 
 
-namespace sync {
+namespace syncs {
 
 
 int sleep(float sec) {
@@ -81,4 +81,4 @@ int sleep_nanos(long nanos) {
     return nanosleep(&req, nullptr);
 }
 
-} // namespace sync
+} // namespace syncs
