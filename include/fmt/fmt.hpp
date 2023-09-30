@@ -12,6 +12,9 @@
 #include "math/util.hpp"
 
 
+namespace fmt {
+    
+
 // Formatting
 constexpr char num_to_hex(std::integral auto num) {
     if (num > 15) return '?';
@@ -113,3 +116,6 @@ constexpr std::string_view string_from_span(std::span<const char> spn) {
 
     return { spn.data() };
 }
+
+
+} // namespace fmt

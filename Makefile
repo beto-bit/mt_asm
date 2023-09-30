@@ -9,7 +9,7 @@ OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
 
 CXX := g++
-CXXFLAGS := -g -std=c++20 -ffreestanding -nostdlib -fno-exceptions -fno-rtti \
+CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib -fno-exceptions -fno-rtti \
 			-I ${INCLUDE_DIR} \
 			-I. -Lbeto -lbeto \
 			-Lsym -lsym \
