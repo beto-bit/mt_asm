@@ -1,6 +1,6 @@
 global write, exit
 global mmap, munmap
-global nanosleep
+global own_nanosleep
 global bare_clone, bare_clone2, clone3
 global futex
 
@@ -62,7 +62,7 @@ munmap:
 
 ; raw nanosleep syscall
 ; the same signature as libc equivalent
-nanosleep:
+own_nanosleep:
     mov eax, SYS_NANOSLEEP
     syscall
     ret

@@ -4,10 +4,12 @@
 #include <cstdint>
 #include <sys/types.h>
 
+
 namespace low {
 extern "C" {
 
-using std::size_t, std::uint32_t;
+
+using std::size_t, std::uint8_t;
 
 /// Just the necesary clone_args
 struct clone_args {
@@ -25,7 +27,7 @@ struct clone_args {
 /// Futex copied from the man page (that's even worse)
 typedef long time_t;
 
-struct timespec {
+struct own_timespec {
     time_t tv_sec;  // seconds
     long tv_nsec;   // nanoseconds
 };
@@ -40,7 +42,7 @@ ssize_t write(int fd, const void *buf, size_t count);
 int munmap(void *addr, size_t len);
 
 // Time
-int nanosleep(const struct timespec *req, struct timespec *rem);
+int nanosleep(const struct own_timespec *req, struct own_timespec *rem);
 
 
 /// If you are in the parent thread, it returns the child TID.
@@ -76,13 +78,14 @@ int futex(
     uint32_t *uaddr,
     int futex_op,
     uint32_t val,
-    const struct timespec *timeout,
+    const struct own_timespec *timeout,
     uint32_t *uaddr2,
     uint32_t val3
 );
 
 // The only real utility function
 void print_char(char c);
+
 
 } // extern "C"
 } // namespace low

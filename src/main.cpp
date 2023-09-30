@@ -1,15 +1,6 @@
-#include "fmt/print.hpp"
-#include "sync/thread.hpp"
+#include "unlibc++/calls.hpp"
 
-int foo(int arg) {
-    printfmt<DEC>("This works: {}\n", arg);
+int main(int argc, char* argv[]) {
+    low::write(1, "Hi mum\n", 7);
     return 0;
 }
-
-int main() {
-    syncs::Thread th { foo, 69 };
-    th.join();
-
-    return 0;
-}
-

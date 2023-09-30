@@ -16,4 +16,3 @@ size_t strlen(const char *s)
 	for (s = (const void *)w; *s; s++);
 	return s-a;
 }
-
