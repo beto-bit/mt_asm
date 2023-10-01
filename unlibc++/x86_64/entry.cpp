@@ -3,7 +3,7 @@
 #include <span>
 #include <string_view>
 
-int main(std::span<const std::string_view> args);
+int main(std::span<std::string_view> args);
 
 extern "C" int cpp_entry(int argc, char* argv[]) {
     const size_t span_size = static_cast<size_t>(argc);
