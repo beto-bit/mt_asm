@@ -42,7 +42,7 @@ ssize_t write(int fd, const void *buf, size_t count);
 int munmap(void *addr, size_t len);
 
 // Time
-int nanosleep(const struct own_timespec *req, struct own_timespec *rem);
+int own_nanosleep(const struct own_timespec *req, struct own_timespec *rem);
 
 
 /// If you are in the parent thread, it returns the child TID.

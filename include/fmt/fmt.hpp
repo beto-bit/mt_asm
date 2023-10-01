@@ -1,6 +1,8 @@
 #pragma once
 
-#include <algorithm>
+// Can't use this header because clang uses it with exceptions
+// #include <algorithm>
+#include "algo/algorithm.hpp"
 #include <array>
 #include <concepts>
 #include <cstddef>
@@ -106,7 +108,7 @@ format_num(std::integral auto num)
 
 /// Gets a string_view from a span of characters
 constexpr std::string_view string_from_span(std::span<const char> spn) {
-    const auto null_terminator = std::find(spn.begin(), spn.end(), '\0');
+    const auto null_terminator = algo::find(spn.begin(), spn.end(), '\0');
 
     // Not found a null terminator
     [[unlikely]]

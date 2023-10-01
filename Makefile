@@ -4,7 +4,10 @@ INCLUDE_DIR := include
 
 LIB_DIR := unlibc++/include
 
-SRCS := src/main.cpp
+SRCS := src/main.cpp \
+		src/fmt/print.cpp \
+		src/mem/alloc.cpp \
+		src/sync/time.cpp
 
 OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)

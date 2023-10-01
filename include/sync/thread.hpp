@@ -2,13 +2,13 @@
 
 #include <cstddef>
 #include <cstdint>
-#include "beto/calls.h"
-#include "beto/clone_flags.h"
-#include "beto/futex_flags.h"
+
+#include "unlibc++/calls.hpp"
+#include "unlibc++/clone_flags.h"
+#include "unlibc++/futex_flags.h"
 
 
 namespace syncs {
-
 
 constexpr size_t STACK_SIZE = 1024 * 1024;
 
