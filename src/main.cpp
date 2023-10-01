@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <span>
 #include <string_view>
 
@@ -15,7 +14,7 @@ int foo(int num) {
 
 int main(std::span<std::string_view> args) {
     syn::SimThread thrd{ foo,42 };
-    
+
     printfmt<DEC>("TID: {}\n", thrd.get_tid());
 
     thrd.join();
