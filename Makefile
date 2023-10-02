@@ -4,8 +4,7 @@ INCLUDE_DIR := include
 
 SRCS := src/main.cpp \
 		src/fmt/print.cpp \
-		src/sync/time.cpp \
-		src/mem/alloc.cpp
+		src/sync/time.cpp
 
 OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)

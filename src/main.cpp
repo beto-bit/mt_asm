@@ -1,21 +1,10 @@
 #include "fmt/print.hpp"
-#include <cstddef>
+#include "sync/time.hpp"
 
 int main() {
-    int* ptr = new int[100];
+    printfmt<DEC>("Well, this works about {} percent of the time\n", 95);
 
-    for (size_t i = 0; i < 100; ++i) {
-        ptr[i] = i + 1;
-    }
-
-    int sum = 0;
-    for (size_t i = 0; i < 100; ++i) {
-        sum += ptr[i];
-    }
-
-    printfmt<DEC>("Num is: {}\n", sum);
-
-    delete[] ptr;
+    sync::sleep(2.5);
 
     return 0;
 }
