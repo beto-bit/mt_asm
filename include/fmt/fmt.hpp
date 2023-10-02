@@ -44,7 +44,8 @@ concept is_format_kind = std::is_same_v<T, DEC> || std::is_same_v<T, HEX>;
 
 /// Returns the number of digits of a number
 /// In the case of DEC, includes the '-' sign.
-template<is_format_kind T>
+template<typename T>
+requires is_format_kind<T>
 constexpr std::uint8_t no_digits(std::integral auto num)
 {
     if constexpr (std::is_same_v<T, DEC>)
@@ -63,7 +64,8 @@ constexpr std::uint8_t no_digits(std::integral auto num)
 /// Returns an array of characters depending on the specified
 /// format type.
 /// The array is of size 20 if DEC, 16 if HEX
-template<is_format_kind T>
+template<typename T>
+requires is_format_kind<T>
 constexpr std::array<char, T::size>
 format_num(std::integral auto num)
 {
