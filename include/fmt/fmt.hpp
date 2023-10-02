@@ -72,6 +72,14 @@ format_num(std::integral auto num)
     if constexpr (std::is_same_v<T, DEC>)
     {
         std::array<char, 20> buff{};
+
+        // The case of 0
+        [[unlikely]]
+        if (num == 0) {
+            buff[0] = '0';
+            return buff;
+        }
+
         const bool is_negative = (num < 0) ? true : false;
 
         // Reverse enter characters in the buffer
@@ -92,6 +100,15 @@ format_num(std::integral auto num)
     else
     {
         std::array<char, 16> buff{};
+
+        // The case of 0 (again)
+        [[unlikely]]
+        if (num == 0) {
+            buff[0] = '0';
+            buff[1] = 'x';
+            buff[2] = '0';
+            return buff;
+        }
 
         size_t index = no_digits<HEX>(num) - 1;
 
