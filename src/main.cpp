@@ -5,10 +5,16 @@
 #include "fmt/print.hpp"
 #include "sync/thread.hpp"
 
-int foo(int num);
+
+int foo(int num) {
+    return num * num;
+}
+
+int juan(void) {
+    return 69;
+}
 
 int main(std::span<std::string_view> args) {
-    syn::SimThread thrd{ foo, 9 };
 
     return 0;
 }

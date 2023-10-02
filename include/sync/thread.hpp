@@ -12,7 +12,6 @@
 
 namespace syn {
 
-
 constexpr size_t STACK_SIZE = 1024 * 1024;
 
 constexpr int CLONE_FLAGS
@@ -23,7 +22,7 @@ constexpr int CLONE_FLAGS
 
 
 template<typename Arg>
-class SimThread
+class Thread
 {
     using ThreadFunc = FuncPtr<int(Arg)>;
 
@@ -33,18 +32,13 @@ class SimThread
     Arg m_arg;
     volatile bool m_finished;
 
-    static int start_thread(SimThread* thrd) {
+    static int start_thread(Thread* thrd) {
         int exit_code = thrd->m_func(thrd->m_arg);
         thrd->m_finished = true;
         
         // Real exit code
         return exit_code;
     }
-
-public:
-    SimThread(int (*func)(Arg), Arg arg)
-        : m_func(func), m_arg(arg), m_finished(false)
-    {}
 };
 
 
