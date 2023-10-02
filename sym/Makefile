@@ -1,7 +1,7 @@
 CC := gcc
 CFLAGS := -std=c11 -O2 -g -Wall -Wextra -pedantic
 
-OBJS := strlen.o memchr.o memcmp.o
+OBJS := strlen.o
 
 libsym.a: ${OBJS}
 	ar rcs $@ $^
