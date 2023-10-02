@@ -35,14 +35,14 @@ struct own_timespec {
 
 // Basic utilities
 ssize_t write(int fd, const void *buf, size_t count);
-[[noreturn]] void thunk_exit(int exit_code);
+[[noreturn]] void exit(int exit_code);
 
 // Memory
 [[nodiscard]] void *mmap(void *start, size_t len, int prot, int flags, int fd, off_t off);
 int munmap(void *addr, size_t len);
 
 // Time
-int thunk_nanosleep(const struct own_timespec *req, struct own_timespec *rem);
+int own_nanosleep(const struct own_timespec *req, struct own_timespec *rem);
 
 
 /// If you are in the parent thread, it returns the child TID.

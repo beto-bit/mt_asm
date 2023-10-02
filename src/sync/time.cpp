@@ -15,7 +15,7 @@ int sleep(float sec) {
         .tv_nsec = nanos
     };
 
-    return low::thunk_nanosleep(&req, nullptr);
+    return low::own_nanosleep(&req, nullptr);
 }
 
 
@@ -25,7 +25,7 @@ int sleep_seconds(long sec) {
         .tv_nsec = 0
     };
 
-    return low::thunk_nanosleep(&req, nullptr);
+    return low::own_nanosleep(&req, nullptr);
 }
 
 int sleep_millis(long millis) {
@@ -43,7 +43,7 @@ int sleep_millis(long millis) {
         .tv_nsec = nanos
     };
 
-    return low::thunk_nanosleep(&req, nullptr);
+    return low::own_nanosleep(&req, nullptr);
 }
 
 int sleep_micros(long micros) {
@@ -61,7 +61,7 @@ int sleep_micros(long micros) {
         .tv_nsec = nanos
     };
 
-    return low::thunk_nanosleep(&req, nullptr);
+    return low::own_nanosleep(&req, nullptr);
 }
 
 int sleep_nanos(long nanos) {
@@ -78,7 +78,7 @@ int sleep_nanos(long nanos) {
         .tv_nsec = nanos
     };
 
-    return low::thunk_nanosleep(&req, nullptr);
+    return low::own_nanosleep(&req, nullptr);
 }
 
 } // namespace syncs
