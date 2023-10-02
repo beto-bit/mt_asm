@@ -12,8 +12,8 @@ SRCS := src/main.cpp \
 OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
 
-CXX := g++
-CXXFLAGS := -O2 -g -std=c++20 \
+CXX := clang++
+CXXFLAGS := -O0 -g3 -std=c++20 \
 			-ffreestanding -nostdlib \
 			-flto -static \
 			-fno-exceptions -fno-rtti \
