@@ -10,7 +10,7 @@ OBJS := $(SRCS:%.cpp=${BUILD_DIR}/%.o)
 DEPS := $(SRCS:%.cpp=${BUILD_DIR}/%.d)
 
 CXX := clang++
-CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib -flto \
+CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib \
 			-fno-exceptions -fno-rtti \
 			-I ${INCLUDE_DIR} \
 			-I ${LIB_DIR} \
@@ -23,15 +23,12 @@ CXXFLAGS := -O2 -g -std=c++20 -ffreestanding -nostdlib -flto \
 
 ${TARGET}: ${OBJS} unlibc++/libunlibc++.a
 	@ echo "Linking..."
-	@ ${CXX} ${CXXFLAGS} -L unlibc++ -l unlibc++ $^ -o $@
+	@ ld $^ -o $@
 
 ${BUILD_DIR}/%.o: %.cpp
 	@ mkdir -p $(dir $@)
 	@ echo "Compiling $<"
 	@ ${CXX} ${CXXFLAGS} $< -c -o $@
-
-unlibc++/libunlibc++.a:
-	make -C unlibc++
 
 
 compile_flags.txt: Makefile
