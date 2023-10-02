@@ -1,5 +1,5 @@
 #include "sync/time.hpp"
-#include "unlibc++/calls.hpp"
+#include "beto/calls.h"
 
 constexpr int MAX_NANOS = 999999999;
 
@@ -10,22 +10,22 @@ namespace syncs {
 int sleep(float sec) {
     long nanos = (sec - (int) sec) * 1000 * 1000 * 1000;
 
-    const low::own_timespec req {
+    const low::timespec req {
         .tv_sec = static_cast<time_t>(sec),
         .tv_nsec = nanos
     };
 
-    return low::own_nanosleep(&req, nullptr);
+    return low::nanosleep(&req, nullptr);
 }
 
 
 int sleep_seconds(long sec) {
-    const low::own_timespec req {
+    const low::timespec req {
         .tv_sec = sec,
         .tv_nsec = 0
     };
 
-    return low::own_nanosleep(&req, nullptr);
+    return nanosleep(&req, nullptr);
 }
 
 int sleep_millis(long millis) {
@@ -38,12 +38,12 @@ int sleep_millis(long millis) {
         seconds += 1;
     }
 
-    const low::own_timespec req {
+    const low::timespec req {
         .tv_sec = seconds,
         .tv_nsec = nanos
     };
 
-    return low::own_nanosleep(&req, nullptr);
+    return nanosleep(&req, nullptr);
 }
 
 int sleep_micros(long micros) {
@@ -56,12 +56,12 @@ int sleep_micros(long micros) {
         seconds += 1;
     }
 
-    const low::own_timespec req {
+    const low::timespec req {
         .tv_sec = seconds,
         .tv_nsec = nanos
     };
 
-    return low::own_nanosleep(&req, nullptr);
+    return nanosleep(&req, nullptr);
 }
 
 int sleep_nanos(long nanos) {
@@ -73,12 +73,12 @@ int sleep_nanos(long nanos) {
         seconds += 1;
     }
 
-    const low::own_timespec req {
+    const low::timespec req {
         .tv_sec = seconds,
         .tv_nsec = nanos
     };
 
-    return low::own_nanosleep(&req, nullptr);
+    return nanosleep(&req, nullptr);
 }
 
 } // namespace syncs

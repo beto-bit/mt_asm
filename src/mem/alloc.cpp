@@ -1,7 +1,7 @@
 #include <cstddef>
 
-#include "unlibc++/calls.hpp"
-#include "unlibc++/memflags.h"
+#include "beto/calls.h"
+#include "beto/memflags.h"
 
 void* operator new(size_t size) {
     void* memory = low::mmap(
