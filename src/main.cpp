@@ -14,12 +14,11 @@ void print_members(std::span<const int> spn) {
 int main() {
     auto dec_fmt = killme<DEC>();
     auto hex_fmt = killme<HEX>();
-    // auto juan = killme<Shitty>();
+    auto juan = killme<Shitty>();
 
     print_members(dec_fmt);
     print_members(hex_fmt);
-
-    // print_members(juan);
+    print_members(juan);
         
     return 0;
 }
