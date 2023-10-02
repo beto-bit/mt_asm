@@ -4,7 +4,7 @@
 constexpr int MAX_NANOS = 999999999;
 
 
-namespace syn {
+namespace syncs {
 
 
 int sleep(float sec) {

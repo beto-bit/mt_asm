@@ -3,7 +3,6 @@
 #include "unlibc++/calls.hpp"
 #include "unlibc++/memflags.h"
 
-
 void* operator new(size_t size) {
     void* memory = low::mmap(
         nullptr,
@@ -24,9 +23,8 @@ void operator delete(void* ptr) {
     low::munmap(memory, *memory);
 }
 
-
 void operator delete(void* ptr, size_t size) {
-    low::munmap((size_t*) ptr - 1, size + 8);
+    low::munmap(ptr, size);
 }
 
 
@@ -51,5 +49,5 @@ void operator delete[](void* ptr) {
 }
 
  void operator delete[](void* ptr, size_t size) {
-     low::munmap((size_t*) ptr - 1, size + 8);
+     low::munmap(ptr, size);
  }

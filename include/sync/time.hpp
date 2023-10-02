@@ -1,6 +1,6 @@
 #pragma once
 
-namespace syn {
+namespace syncs {
 
 
 /// Sleeps for the given ammount of seconds
