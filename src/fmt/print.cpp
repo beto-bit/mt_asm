@@ -14,10 +14,6 @@ void print(std::string_view str) {
     low::write(1, str.data(), str.length());
 }
 
-void println(std::string_view str) {
-    printfmt("{}\n", str);
-}
-
 void printfmt(std::string_view str, std::string_view fmt_str) {
     const auto fmt_break = str.find("{}");
 
