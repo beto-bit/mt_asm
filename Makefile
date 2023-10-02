@@ -31,7 +31,7 @@ ${BUILD_DIR}/%.o: %.cpp
 
 
 compile_flags.txt: Makefile
-	@ echo ${CXXFLAGS} | tr ' ' '\n' > $@
+	@ echo ${CFLAGS} | tr ' ' '\n' > $@
 
 .PHONY: run
 run: main
