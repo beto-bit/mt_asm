@@ -1,7 +1,7 @@
 #include "fmt/print.hpp"
 
 int main() {
-    printfmt<DEC>("Well, this works about {} percent of the time\n", 95);
+    printfmt<DEC>("Hi mum, my number is: {}\n", 42);
     return 0;
 }
 

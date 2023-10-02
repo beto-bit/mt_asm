@@ -6,7 +6,6 @@
 #include "fmt/print.hpp"
 #include "mem/buff.hpp"
 
-
 void print(char c) {
     low::print_char(c);
 }
@@ -29,7 +28,7 @@ void printfmt(std::string_view str, std::string_view fmt_str) {
     }
 
     // Lil buffer for output
-    mem::MemBuffer<256> membuff{};
+    MemBuffer<256> membuff{};
 
     const auto first_len = fmt_break;
     const auto secnd_len = str.size() - first_len - 2;  // Take the "{}" in account

@@ -9,9 +9,6 @@
 #include <span>
 
 
-namespace mem {
-
-
 template<std::size_t Size>
 class MemBuffer
 {
@@ -44,6 +41,3 @@ public:
         return Size - m_written;
     }
 };
-
-
-} // namespace mem
