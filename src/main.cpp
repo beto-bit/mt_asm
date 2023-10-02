@@ -1,25 +1,25 @@
-#include "fmt/print.hpp"
+#include "beto/calls.h"
+
+#include <array>
+#include <cstddef>
 #include <span>
+#include <string_view>
+#include <numeric>
 
-struct Shitty {};
 
-void print_members(std::span<const int> spn) {
-    for (int num : spn) {
-        print(num_to_hex(num));
-        print(' ');
-    }
-    print('\n');
+void print(char c) {
+    low::print_char(c);
 }
 
-int main() {
-    auto dec_fmt = killme<DEC>();
-    auto hex_fmt = killme<HEX>();
-    auto juan = killme<Shitty>();
+void print(std::string_view str) {
+    low::write(1, str.data(), str.size());
+}
 
-    print_members(dec_fmt);
-    print_members(hex_fmt);
-    print_members(juan);
-        
+
+int main(int argc, char* argv[]) {
+    print(argv[0]);
+    print('\n');
+
     return 0;
 }
 
