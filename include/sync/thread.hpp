@@ -41,56 +41,10 @@ class SimThread
         return exit_code;
     }
 
-
 public:
     SimThread(int (*func)(Arg), Arg arg)
         : m_func(func), m_arg(arg), m_finished(false)
-    {
-        // Allocate stack
-        void* stack = ::operator new(STACK_SIZE);
-
-        // Needed clone arguments
-        low::clone_args cl_args {
-            .flags = CLONE_FLAGS,
-            .pidfd = nullptr,
-            .child_tid = &this->m_tid,
-            .parent_tid = &this->m_tid,
-            .exit_signal = 0,
-            .stack = stack,
-            .stack_size = STACK_SIZE,
-            .tls = 0
-        };
-
-        // Create the new thread
-        low::clone3(
-            &cl_args,
-            sizeof(cl_args),
-            reinterpret_cast<int (*)(void*)>(start_thread),
-            reinterpret_cast<void*>(this)
-        );
-
-        // Store info
-        m_stack = stack;
-    }
-
-    int get_tid() const {
-        return m_tid;
-    }
-
-    void join() {
-        if (!m_finished) {
-            low::futex(
-                (uint32_t*) &this->m_tid,
-                FUTEX_WAIT_BITSET | FUTEX_CLOCK_REALTIME,
-                m_tid,
-                NULL,   // Timeout
-                NULL,   // Ignored
-                FUTEX_BITSET_MATCH_ANY
-            );
-        }
-
-        ::operator delete(m_stack);
-    }
+    {}
 };
 
 
