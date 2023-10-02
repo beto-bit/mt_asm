@@ -15,7 +15,7 @@ AS := nasm
 ASFLAGS := -f elf64 -g
 
 CXX := clang
-CXXFLAGS := -std=c++20 -O2 -g -ffreestanding -nostdlib \
+CXXFLAGS := -O2 -g -ffreestanding -nostdlib \
 			-Wall -Wextra -pedantic
 
 ${TARGET}: ${OBJS} ${INTRINSIC_SYMBOLS}
