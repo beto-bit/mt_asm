@@ -1,6 +1,6 @@
 #pragma once
 
-namespace syncs {
+namespace sync {
 
 
 /// Sleeps for the given ammount of seconds
@@ -19,4 +19,4 @@ int sleep_micros(long micros);
 int sleep_nanos(long nanos);
 
 
-} // namespace syncs
+} // namespace sync

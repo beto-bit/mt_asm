@@ -13,7 +13,7 @@ void* operator new(size_t size) {
         0
     );
 
-    *(size_t*) memory = size + 8;
+    *(size_t*) memory = size;
 
     return (size_t*) memory + 1;
 }

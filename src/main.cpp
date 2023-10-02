@@ -1,14 +1,21 @@
 #include "fmt/print.hpp"
-#include "sync/thread.hpp"
-
-int foo(int arg) {
-    printfmt<DEC>("This works: {}\n", arg);
-    return 0;
-}
+#include <cstddef>
 
 int main() {
-    syncs::Thread th { foo, 69 };
-    th.join();
+    int* ptr = new int[100];
+
+    for (size_t i = 0; i < 100; ++i) {
+        ptr[i] = i + 1;
+    }
+
+    int sum = 0;
+    for (size_t i = 0; i < 100; ++i) {
+        sum += ptr[i];
+    }
+
+    printfmt<DEC>("Num is: {}\n", sum);
+
+    delete[] ptr;
 
     return 0;
 }
