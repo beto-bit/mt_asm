@@ -14,7 +14,7 @@ OBJS := ${BUILD_DIR}/entry.o \
 AS := nasm
 ASFLAGS := -f elf64 -g
 
-CXX := clang++
+CXX := g++
 CXXFLAGS := -std=c++20 -O2 -g \
 			-ffreestanding -nostdlib -static\
 			-Wall -Wextra -pedantic

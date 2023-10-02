@@ -1,9 +1,11 @@
 global write, exit
 global mmap, munmap
-global own_nanosleep
+global nanosleep
 global bare_clone, bare_clone2, clone3
 global futex
 
+; Some thunks because C++ complains
+global thunk_exit, thunk_nanosleep
 
 ; Basic utilities
 %define SYS_WRITE 1
@@ -24,6 +26,12 @@ global futex
 
 section .text
 
+thunk_exit:
+    jmp exit
+
+thunk_nanosleep:
+    jmp nanosleep
+
 ; Does the same as libc equivalent
 ; ssize_t write(int fd, const void *buf, size_t count)
 ;
@@ -34,7 +42,6 @@ write:
     mov eax, SYS_WRITE
     syscall
     ret
-
 
 ; exits with code in rdi
 exit:
@@ -62,7 +69,7 @@ munmap:
 
 ; raw nanosleep syscall
 ; the same signature as libc equivalent
-own_nanosleep:
+nanosleep:
     mov eax, SYS_NANOSLEEP
     syscall
     ret
