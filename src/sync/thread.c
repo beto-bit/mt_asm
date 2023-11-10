@@ -76,11 +76,11 @@ void join_thread(struct Thread *thrd) {
         // sets the value at that memory location to 0.
         futex(
             (uint32_t*) &thrd->tid,
-            FUTEX_WAIT_BITSET | FUTEX_CLOCK_REALTIME,
+            FUTEX_WAIT,
             thrd->tid,
             NULL,
             NULL,
-            FUTEX_BITSET_MATCH_ANY
+            0
         );
     }
 
