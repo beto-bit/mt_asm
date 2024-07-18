@@ -19,7 +19,7 @@ AS := nasm
 ASFLAGS := -f elf64 -g
 
 CC := gcc
-CFLAGS := -O2 -g -std=c11 -ffreestanding -nostdlib \
+CFLAGS := -O2 -g -std=c11 -ffreestanding -nostdlib -fno-stack-protector \
 		  -I ${INCLUDE_DIR} \
 		  -Wall -Wextra -pedantic -Warray-bounds \
 		  -Wdeprecated -Wcast-qual \
