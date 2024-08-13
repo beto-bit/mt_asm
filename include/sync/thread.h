@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdatomic.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -7,7 +8,7 @@
 
 struct Thread {
     int tid;
-    volatile bool finished;
+    atomic_bool finished;
     void *stack;
     size_t stack_size;
     int (*fn)(void *);
