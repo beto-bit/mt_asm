@@ -1,3 +1,5 @@
+MAKEFLAGS := -j $(nproc) --output-sync=target
+
 TARGET := main
 BUILD_DIR := build
 INCLUDE_DIR := include
