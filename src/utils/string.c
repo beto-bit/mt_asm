@@ -23,7 +23,7 @@ const char *find_adjacent_chars(const char *str, char c) {
             return str + i;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -48,5 +48,5 @@ const char *find_substr(const char *str, const char *substr) {
         ++str;
     }
 
-    return NULL;
+    return nullptr;
 }

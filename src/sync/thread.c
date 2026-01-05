@@ -32,7 +32,7 @@ static int start_thread(void *arg) {
 void create_thread(struct Thread *thrd, int (*fn)(void *), void *arg) {
     // Allocate memory for the thread
     void *stack = mmap(
-        NULL,
+        nullptr,
         STACK_SIZE,
         PROT_READ | PROT_WRITE,
         MAP_PRIVATE | MAP_ANON,
@@ -78,8 +78,8 @@ void join_thread(struct Thread *thrd) {
             (uint32_t*) &thrd->tid,
             FUTEX_WAIT,
             thrd->tid,
-            NULL,
-            NULL,
+            nullptr,
+            nullptr,
             0
         );
     }

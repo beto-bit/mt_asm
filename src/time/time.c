@@ -13,7 +13,7 @@ int sleep(float sec) {
             .tv_sec = sec,
             .tv_nsec = nanos
         },
-        NULL
+        nullptr
     );
 }
 
@@ -23,7 +23,7 @@ int sleep_seconds(long sec) {
             .tv_sec = sec,
             .tv_nsec = 0
         },
-        NULL
+        nullptr
     );
 }
 
@@ -42,7 +42,7 @@ int sleep_millis(long millis) {
             .tv_sec = seconds,
             .tv_nsec = nanos
         },
-        NULL
+        nullptr
     );
 }
 
@@ -61,7 +61,7 @@ int sleep_micros(long micros) {
             .tv_sec = seconds,
             .tv_nsec = nanos
         },
-        NULL
+        nullptr
     );
 }
 
@@ -79,6 +79,6 @@ int sleep_nanos(long nanos) {
             .tv_sec = seconds,
             .tv_nsec = nanos
         },
-        NULL
+        nullptr
     );
 }
