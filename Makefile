@@ -27,11 +27,17 @@ CFLAGS := -O2 -g -std=c23 -ffreestanding -nostdlib -fno-stack-protector \
 		  -Wdeprecated -Wcast-qual \
 		  -Wundef -Wunused -Wshadow \
 		  -Wdouble-promotion -Wfloat-equal \
-		  -MP -MD
+		  -MP -MD \
+		  -march=armv8.1-a+lse
+
+LD := aarch64-linux-gnu-ld
+
+GDB := aarch64-linux-gnu-gdb
+
 
 ${TARGET}: ${C_OBJS} ${AS_OBJS}
 	@ echo "Linking..."
-	@ ld $^ -o $@
+	@ ${LD} $^ -o $@
 
 ${BUILD_DIR}/%.o: %.c
 	@ mkdir -p $(dir $@)
@@ -48,7 +54,12 @@ compile_flags.txt: Makefile
 
 .PHONY: run
 run: main
-	@ qemu-aarch64-static ./main
+	@ qemu-aarch64-static -cpu neoverse-n1 ./main
+
+.PHONY: debug
+debug: main
+	@ qemu-aarch64-static -cpu neoverse-n1 -g 4242 $^ &
+	@ ${GDB} -ex 'target remote :4242'
 
 .PHONY: clean
 clean:
