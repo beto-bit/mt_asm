@@ -1,4 +1,4 @@
-MAKEFLAGS := -j $(nproc) --output-sync=target
+MAKEFLAGS := -j $(shell nproc)
 
 TARGET := main
 BUILD_DIR := build
@@ -11,16 +11,16 @@ C_SRCS := src/main.c \
 		  src/mem/buffering.c \
 		  src/time/time.c
 
-AS_SRCS := src/start.asm src/low/calls.asm src/low/utils.asm
+AS_SRCS := src/start.s src/low/calls.s src/low/utils.s
 
 C_OBJS := $(C_SRCS:%.c=${BUILD_DIR}/%.o)
-AS_OBJS := $(AS_SRCS:%.asm=${BUILD_DIR}/%.asm.o)
+AS_OBJS := $(AS_SRCS:%.s=${BUILD_DIR}/%.s.o)
 DEPS := $(C_SRCS:%.c=${BUILD_DIR}/%.d)
 
-AS := nasm
-ASFLAGS := -f elf64 -g
+AS := aarch64-linux-gnu-as
+ASFLAGS := -g
 
-CC := gcc
+CC := aarch64-linux-gnu-gcc
 CFLAGS := -O2 -g -std=c23 -ffreestanding -nostdlib -fno-stack-protector \
 		  -I ${INCLUDE_DIR} \
 		  -Wall -Wextra -pedantic -Warray-bounds \
@@ -38,7 +38,7 @@ ${BUILD_DIR}/%.o: %.c
 	@ echo "Compiling $<"
 	@ ${CC} ${CFLAGS} $< -c -o $@
 
-${BUILD_DIR}/%.asm.o: %.asm
+${BUILD_DIR}/%.s.o: %.s
 	@ mkdir -p $(dir $@)
 	@ echo "Compiling $<"
 	@ ${AS} ${ASFLAGS} $< -o $@
@@ -48,7 +48,7 @@ compile_flags.txt: Makefile
 
 .PHONY: run
 run: main
-	@ ./main
+	@ qemu-aarch64-static ./main
 
 .PHONY: clean
 clean:
